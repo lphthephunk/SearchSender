@@ -1,0 +1,61 @@
+#paper {
+  padding: 20px;
+}
+
+#avatar {
+  margin-bottom: 5px;
+}
+
+#main-container {
+  width: fit-content;
+  margin: auto;
+  align-content: center;
+  margin-top: 7%;
+}
+
+#title {
+  text-align: center;
+  margin-top: 5%;
+}
+
+#register {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  width: fit-content;
+}
+
+#register:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#register-container {
+  width: fit-content;
+  margin: auto;
+  margin-top: 7%;
+}
+
+#register-paper {
+  padding: 20px;
+}
+
+#register-area {
+  display: inline-flex;
+}
+
+#register-text {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+#back-button {
+  transition: 0.2s all;
+}
+
+#back-button:hover {
+  background: black;
+}
+
+#back-button:active {
+  opacity: 0.6;
+}

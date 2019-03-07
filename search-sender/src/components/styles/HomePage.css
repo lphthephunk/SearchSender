@@ -1,0 +1,29 @@
+#main-view-button-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+}
+
+#schedule-container {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#schedule-table {
+  margin-top: 20px;
+}
+
+#list-paper {
+  margin-top: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.garbage-can:hover {
+  transition: all 0.2s;
+  cursor: pointer;
+  opacity: 0.5;
+}
