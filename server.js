@@ -1,13 +1,14 @@
-import express from "express";
-import mongoose from "mongoose";
-import expressGraphQL from "express-graphql";
-import bodyParser from "body-parser";
-import schema from "./graphql";
-import cors from "cors";
-import Agenda from "agenda";
-import jwt from "express-jwt";
-import { sendMessage } from "./utils/Nodemailer";
-import { searchCraigslist } from "./utils/craigslist/postRetriever";
+const express = require("express");
+const mongoose = require("mongoose");
+const expressGraphQL = require("express-graphql");
+const bodyParser = require("body-parser");
+const schema = require("./server/graphql");
+const cors = require("cors");
+const Agenda = require("agenda");
+const jwt = require("express-jwt");
+const sendMessage = require("./server/utils/Nodemailer").sendMessage;
+const searchCraigslist = require("./server/utils/craigslist/postRetriever")
+  .searchCraigslist;
 
 require("dotenv").config();
 
@@ -15,7 +16,7 @@ const app = express();
 
 const mongURI =
   "mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
-export const agenda = new Agenda();
+const agenda = new Agenda();
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -67,7 +68,7 @@ mongoose
 
 // auth middleware
 const auth = jwt({
-  secret: process.env.JWT_SECRET,
+  secret: process.env.JWT_SECRET || "SomeRandomSecret",
   credentialsRequired: false
 });
 
@@ -89,4 +90,4 @@ app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
 });
 
-export default app;
+module.exports = { app, agenda };

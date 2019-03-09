@@ -1,6 +1,6 @@
-import craigslist from "node-craigslist";
+const craigslist = require("node-craigslist");
 
-export const searchCraigslist = async (
+const searchCraigslist = async (
   city,
   keywords,
   category = "sss" /* all */,
@@ -33,3 +33,5 @@ export const searchCraigslist = async (
     console.error(err);
   }
 };
+
+module.exports = searchCraigslist;

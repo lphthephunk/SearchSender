@@ -1,6 +1,6 @@
-import { mergeResolvers } from "merge-graphql-schemas";
+const mergeResolvers = require("merge-graphql-schemas").mergeResolvers;
 
-import userResolver from "./User";
-import searchResolver from "./Search";
+const userResolver = require("./User");
+const searchResolver = require("./Search");
 
-export default mergeResolvers([userResolver, searchResolver]);
+module.exports = mergeResolvers([userResolver, searchResolver]);

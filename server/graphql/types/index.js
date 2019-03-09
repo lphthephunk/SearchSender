@@ -1,8 +1,8 @@
-import { mergeTypes } from "merge-graphql-schemas";
+const mergeTypes = require("merge-graphql-schemas").mergeTypes;
 
-import User from "./User";
-import Schedule from "./Search";
+const User = require("./User");
+const Schedule = require("./Search");
 
 const typeDefs = [User, Schedule];
 
-export default mergeTypes(typeDefs, { all: true });
+module.exports = mergeTypes(typeDefs, { all: true });

@@ -1,9 +1,9 @@
-import nodemailer from "nodemailer";
-import NodeMailerCreds from "../NodeMailerCreds";
+const nodemailer = require("nodemailer");
+const NodeMailerCreds = require("../NodeMailerCreds.js");
 
 const FROM_ACCOUNT = { user: NodeMailerCreds.user, pass: NodeMailerCreds.pass };
 
-export const sendMessage = async (
+const sendMessage = async (
   toAccount,
   message,
   subject,
@@ -14,7 +14,14 @@ export const sendMessage = async (
     if (useTestAccount === true) {
       fromAccount = await nodemailer.createTestAccount();
     } else {
-      fromAccount = FROM_ACCOUNT;
+      if (process.env.NODE_ENV) {
+        fromAccount = FROM_ACCOUNT;
+      } else {
+        fromAccount = {
+          user: process.env.SenderEmail,
+          password: process.env.SenderPassword
+        };
+      }
     }
 
     let transporter = nodemailer.createTransport({
@@ -45,4 +52,4 @@ export const sendMessage = async (
   }
 };
 
-export const formulateCraigslistResponse = ({ data }) => {};
+module.exports = sendMessage;
