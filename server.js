@@ -62,8 +62,6 @@ mongoose
         }
       });
     });
-    console.log("Server Agenda: ", agenda);
-    module.exports = agenda;
   })
   .catch(err => {
     console.error(err);
@@ -98,3 +96,5 @@ app.get("*", (req, res) => {
 app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
 });
+
+module.exports = { agenda: agenda };
