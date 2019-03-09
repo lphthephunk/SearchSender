@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" ",
     "heroku-postbuild": "cd search-sender && npm install && npm run build",
-    "start": "concurrently \"node server.js\" \"cd search-sender && npm run start\""
+    "start": "concurrently --kill-others \"node server.js\" \"cd search-sender && npm run start\""
   },
   "author": "",
   "license": "ISC",
