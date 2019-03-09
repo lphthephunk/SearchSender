@@ -9,6 +9,7 @@ const jwt = require("express-jwt");
 const sendMessage = require("./server/utils/Nodemailer").sendMessage;
 const searchCraigslist = require("./server/utils/craigslist/postRetriever")
   .searchCraigslist;
+const path = require("path");
 
 require("dotenv").config();
 
@@ -85,6 +86,12 @@ app.use(
     graphiql: false
   }))
 );
+
+app.use(express.static(path.join(__dirname, "search-sender", "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "search-sender", "build", "index.html"));
+});
 
 app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
