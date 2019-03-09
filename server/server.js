@@ -13,7 +13,8 @@ require("dotenv").config();
 
 const app = express();
 
-const mongURI = "mongodb://localhost:auth/SearchSender";
+const mongURI =
+  "mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
 export const agenda = new Agenda();
 
 mongoose.set("useNewUrlParser", true);
