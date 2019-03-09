@@ -1,7 +1,4 @@
 const nodemailer = require("nodemailer");
-const NodeMailerCreds = require("../NodeMailerCreds.js");
-
-const FROM_ACCOUNT = { user: NodeMailerCreds.user, pass: NodeMailerCreds.pass };
 
 const sendMessage = async (
   toAccount,
@@ -14,14 +11,10 @@ const sendMessage = async (
     if (useTestAccount === true) {
       fromAccount = await nodemailer.createTestAccount();
     } else {
-      if (process.env.NODE_ENV) {
-        fromAccount = FROM_ACCOUNT;
-      } else {
-        fromAccount = {
-          user: process.env.SenderEmail,
-          password: process.env.SenderPassword
-        };
-      }
+      fromAccount = {
+        user: process.env.SenderEmail,
+        password: process.env.SenderPassword
+      };
     }
 
     let transporter = nodemailer.createTransport({
