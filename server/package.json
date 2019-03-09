@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" ",
-    "start": "node server.js"
+    "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" "
   },
   "author": "",
   "license": "ISC",
