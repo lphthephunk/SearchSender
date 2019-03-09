@@ -6,7 +6,7 @@ export default async () => {
     const result = await request("https://geo.craigslist.org/iso/us");
     if (result) {
       const $ = cheerio.load(result);
-      const cities = [];
+      let cities = [];
 
       $(".geo-site-list")
         .find("li")
@@ -21,6 +21,16 @@ export default async () => {
           const ref = refSplit[0].replace("https://", "");
           cities.push({ cityName, ref });
         });
+
+      cities = cities.sort((a, b) => {
+        if (a.cityName.toLowerCase() < b.cityName.toLowerCase()) {
+          return -1;
+        }
+        if (a.cityName.toLowerCase() > b.cityName.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
 
       return cities;
     } else {

@@ -4,9 +4,9 @@ import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../utils/AuthWrapper";
 
 export default function AuthedRoute(props) {
-  const authorized = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
-  if (authorized === true) {
+  if (isAuthenticated === true) {
     return <Route {...props} />;
   } else {
     return <Redirect to="/login" />;

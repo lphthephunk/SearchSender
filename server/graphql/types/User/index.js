@@ -6,13 +6,13 @@ type User {
 }
 
 type Query {
-    user(email: String!, password: String!): User
+    user(email: String!, password: String!): String
     users: [User]
 }
 
 type Mutation{
-    addUser(email: String!, password: String!): User
-    editUser(_id: ID!, email: String, password: String): User
+    addUser(email: String!, password: String!): String
+    editUser(_id: ID!, email: String, password: String): String
     deleteUser(_id:ID!): User
 }
 `;

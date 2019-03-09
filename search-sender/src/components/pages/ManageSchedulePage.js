@@ -19,7 +19,7 @@ import TimeInput from "material-ui-time-picker";
 import "../styles/ManageSchedulePage.css";
 import ConfirmationPopup from "../ConfirmationPopup";
 import useHistory from "../../hooks/useHistory";
-import client from "../../apolloClient";
+import { client } from "../../apolloClient";
 import { UserStateContext } from "../../utils/UserStateProvider";
 import { AddSchedule, EditSchedule } from "../../graphql/search/mutations";
 import { GetSchedules, GetCities } from "../../graphql/search/queries";
@@ -49,7 +49,9 @@ export default function ManageSchedulePage(props) {
   const [selectedCity, setSelectedCity] = useState("");
   const [availableCities, setAvailableCities] = useState([]);
 
-  const userId = useContext(UserStateContext);
+  const { userId } = useContext(UserStateContext);
+
+  const appolloClient = client();
 
   // attempt to dump initial state into the fields if we are coming here to edit
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function ManageSchedulePage(props) {
     }
 
     // fetch craigslist cities for select control
-    client
+    appolloClient
       .query({
         query: GetCities,
         fetchPolicy: "cache-first"
@@ -81,7 +83,7 @@ export default function ManageSchedulePage(props) {
       })
       .catch(err => {
         if (err.graphQLErrors && err.graphQLErrors.length > 0) {
-          console.error(err.graphQLErrorsp[0]);
+          console.error(err.graphQLErrors[0]);
           setServerError(err.graphQLErrors[0].message);
         } else {
           console.error(err);
@@ -181,7 +183,7 @@ export default function ManageSchedulePage(props) {
       variables["userId"] = userId;
     }
 
-    await client
+    await appolloClient
       .mutate({
         variables,
         mutation: selectedMutation,

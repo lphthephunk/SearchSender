@@ -5,8 +5,11 @@ import bodyParser from "body-parser";
 import schema from "./graphql";
 import cors from "cors";
 import Agenda from "agenda";
+import jwt from "express-jwt";
 import { sendMessage } from "./utils/Nodemailer";
 import { searchCraigslist } from "./utils/craigslist/postRetriever";
+
+require("dotenv").config();
 
 const app = express();
 
@@ -61,17 +64,28 @@ mongoose
     console.error(err);
   });
 
-app.use(bodyParser.json());
-app.use(cors());
+// auth middleware
+const auth = jwt({
+  secret: process.env.JWT_SECRET,
+  credentialsRequired: false
+});
+
 app.use(
-  expressGraphQL({
-    graphiql: false,
-    schema
-  })
+  "*",
+  auth,
+  bodyParser.json(),
+  cors({ origin: "http://localhost:3000", credentials: true }),
+  expressGraphQL(req => ({
+    schema,
+    context: {
+      authenticatedUser: req.user
+    },
+    graphiql: false
+  }))
 );
 
-app.listen(4000, () => {
-  console.log("listening on 4000");
+app.listen(process.env.PORT || 4000, () => {
+  console.log("Express server is running...");
 });
 
 export default app;

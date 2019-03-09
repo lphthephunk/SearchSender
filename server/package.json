@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently --kill-others \"nodemon --exec babel-node server.js\" \"mongod\" "
+    "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" "
   },
   "author": "",
   "license": "ISC",
@@ -14,15 +14,19 @@
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "agenda": "^2.0.2",
+    "apollo-server-express": "^2.4.8",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
+    "express-jwt": "^5.3.1",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.4",
+    "jsonwebtoken": "^8.5.0",
     "merge-graphql-schemas": "^1.5.8",
     "mongoose": "^5.4.16",
     "node-craigslist": "^2.0.0",

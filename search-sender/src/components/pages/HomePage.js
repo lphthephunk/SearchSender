@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { DeleteOutlined, Add } from "@material-ui/icons";
 
-import client from "../../apolloClient";
+import { client } from "../../apolloClient";
 import useHistory from "../../hooks/useHistory";
 import { UserStateContext } from "../../utils/UserStateProvider";
 import "../styles/HomePage.css";
@@ -27,10 +27,12 @@ export default function HomePage() {
   const [schedules, setSchedules] = useState([]);
   const [retrievalError, setRetrievalError] = useState("");
   const [deletionError, setDeletionError] = useState("");
-  const userId = useContext(UserStateContext);
+  const { userId } = useContext(UserStateContext);
+
+  const apolloClient = client();
 
   useEffect(() => {
-    client
+    apolloClient
       .query({
         variables: { id: userId },
         query: GetSchedules,
@@ -53,7 +55,7 @@ export default function HomePage() {
   }, []);
 
   const handleDeleteSchedule = scheduleId => {
-    client
+    apolloClient
       .mutate({
         variables: { id: scheduleId },
         mutation: DeleteSchedule

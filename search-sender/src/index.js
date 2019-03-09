@@ -8,13 +8,15 @@ import App from "./components/App";
 import AuthedRoute from "./utils/AuthedRoute";
 import HomePage from "./components/pages/HomePage";
 import Login from "./components/auth/Login";
-import client from "./apolloClient";
+import { client } from "./apolloClient";
 import ManageSchedulePage from "./components/pages/ManageSchedulePage";
 import UserStateProvider from "./utils/UserStateProvider";
 import "./mainStyles/style.css";
 
+const appolloClient = client();
+
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <ApolloProvider client={appolloClient}>
     <WrappedBrowserRouter>
       <AuthWrapper>
         <UserStateProvider>

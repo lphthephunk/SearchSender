@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Paper from "@material-ui/core/Paper";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
@@ -6,12 +6,14 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import BackButton from "@material-ui/icons/ArrowBack";
 import CheckIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import XIcon from "@material-ui/icons/RemoveCircleOutlineRounded";
-import gql from "graphql-tag";
 
 import "../styles/Login.css";
 import useHistory from "../../hooks/useHistory";
 import { FormControl, Avatar, Typography, InputLabel } from "@material-ui/core";
-import client from "../../apolloClient";
+import { client } from "../../apolloClient";
+import { AddUser } from "../../graphql/user/mutations";
+import { FetchUser } from "../../graphql/user/queries";
+import { AuthContext } from "../../utils/AuthWrapper";
 
 export default function Login({ currentPath }) {
   const { history } = useHistory();
@@ -22,31 +24,31 @@ export default function Login({ currentPath }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showEmailError, setShowEmailError] = useState(false);
   const [validationError, setValidationError] = useState("");
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const [unknownError, setUnknownError] = useState("");
+
+  const apolloClient = client();
 
   const MINIMUM_PASSWORD_LENGTH = 8;
 
   const handleLogin = async e => {
     e.preventDefault();
 
-    const validateUser = gql`
-      query FetchUser($email: String!, $password: String!) {
-        user(email: $email, password: $password) {
-          _id
-          email
-        }
-      }
-    `;
-
-    await client
+    await apolloClient
       .query({
         variables: { email, password },
-        query: validateUser
+        query: FetchUser
       })
-      .then(value => {
+      .then(res => {
         // store jwt and send them to the next page
-        //TODO: the jwt portion
-        localStorage.setItem("token", "test");
-        localStorage.setItem("userId", value.data.user._id);
+        const parsedObj = JSON.parse(res.data.user);
+        const userId = parsedObj.userId;
+        const token = parsedObj.JWT_TOKEN;
+        const email = parsedObj.email;
+        localStorage.setItem("JWT_TOKEN", token);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("email", email);
+        setIsAuthenticated(true);
         if (!currentPath) {
           history.push("/");
         } else {
@@ -62,41 +64,51 @@ export default function Login({ currentPath }) {
             "Couldn't resolve error. Please try logging in again."
           );
         }
+        setIsAuthenticated(false);
       });
   };
 
   const handleRegister = async e => {
     e.preventDefault();
 
-    const addUser = gql`
-      mutation AddUser($email: String!, $password: String!) {
-        addUser(email: $email, password: $password) {
-          email
-        }
-      }
-    `;
-
-    await client
+    await apolloClient
       .mutate({
         variables: { email, password },
-        mutation: addUser
+        mutation: AddUser
       })
-      .then(() => {
+      .then(res => {
+        const jsonObj = JSON.parse(res.data.addUser);
+        const userId = jsonObj.userId;
+        const token = jsonObj.JWT_TOKEN;
+        const email = jsonObj.email;
+
+        localStorage.setItem("JWT_TOKEN", token);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("email", email);
+
+        setIsAuthenticated(true);
+
         setPassword("");
+        setConfirmPassword("");
         setEmail("");
+        setConfirmEmail("");
         setShowRegister(false);
+
+        history.push("/");
       })
       .catch(err => {
-        if (err.graphQLErrors) {
-          if (err.graphQLErrors[0].message.match("email")) {
-            if (err.graphQLErrors[0].message.match("dup key")) {
-              setShowEmailError(true);
+        try {
+          if (err.graphQLErrors) {
+            if (err.graphQLErrors[0].message.match("email")) {
+              if (err.graphQLErrors[0].message.match("dup key")) {
+                setShowEmailError(true);
+              }
             }
           }
-        } else {
-          alert(
-            "There was a problem registering you. Please wait a bit and then retry."
-          );
+        } catch (parseErr) {
+          console.error(parseErr);
+        } finally {
+          setUnknownError("Unkown registration error. Please wait and retry.");
         }
       });
   };
@@ -344,6 +356,9 @@ export default function Login({ currentPath }) {
                 <Typography component="p" style={{ color: "red" }}>
                   {validationError}
                 </Typography>
+              )}
+              {unknownError !== "" && (
+                <Typography component="p">{unknownError}</Typography>
               )}
               <Button
                 type="submit"

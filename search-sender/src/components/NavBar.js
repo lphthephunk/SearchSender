@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 
 import useHistory from "../hooks/useHistory";
+import { AuthContext } from "../utils/AuthWrapper";
+import { UserStateContext } from "../utils/UserStateProvider";
 import "./styles/NavBar.css";
-
-const handleLogout = history => {
-  localStorage.removeItem("token");
-  history.push("/login");
-};
+import { Typography } from "@material-ui/core";
 
 export default function NavBar() {
   const { history } = useHistory();
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const { email } = useContext(UserStateContext);
+
+  const handleLogout = history => {
+    localStorage.removeItem("JWT_TOKEN");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+    setIsAuthenticated(false);
+    history.push("/login");
+  };
   return (
-    <div style={{ position: "fixed", top: "0%", width: "100%" }}>
+    <div id="nav-container">
       <Button
         id="logout-button"
         variant="contained"
@@ -20,6 +28,13 @@ export default function NavBar() {
       >
         Logout
       </Button>
+      <Typography
+        style={{ marginTop: "15px", marginRight: "20px" }}
+        component="h4"
+        variant="h5"
+      >
+        Hi, {email}!
+      </Typography>
     </div>
   );
 }
