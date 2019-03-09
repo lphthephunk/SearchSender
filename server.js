@@ -87,10 +87,10 @@ app.use(
   }))
 );
 
-app.use(express.static(path.join(__dirname, "search-sender", "build")));
+app.use(express.static(path.join(__dirname, "search-sender/build")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "search-sender", "build", "index.html"));
+  res.sendFile(path.join(__dirname + "search-sender/build/index.html"));
 });
 
 app.listen(process.env.PORT || 4000, () => {
