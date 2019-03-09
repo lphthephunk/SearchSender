@@ -63,7 +63,6 @@ module.exports = {
       { authenticatedUser }
     ) => {
       try {
-        console.log("agenda: ", agenda);
         if (authenticatedUser) {
           const newSchedule = new Schedule({
             userId,
