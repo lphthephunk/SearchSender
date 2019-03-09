@@ -74,7 +74,7 @@ const auth = jwt({
 });
 
 app.use(
-  "*",
+  "/graphql",
   auth,
   bodyParser.json(),
   cors({ origin: "http://localhost:3000", credentials: true }),
@@ -87,15 +87,11 @@ app.use(
   }))
 );
 
-app.use(express.static(path.join(__dirname, "search-sender/build")));
+app.use(express.static("public"));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "search-sender/build")));
-  //
-  app.get("*", (req, res) => {
-    res.sendfile(path.join((__dirname = "search-sender/build/index.html")));
-  });
-}
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
 
 app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
