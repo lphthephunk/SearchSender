@@ -97,4 +97,4 @@ app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
 });
 
-module.exports = { app, agenda };
+module.exports = agenda;
