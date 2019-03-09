@@ -1,0 +1,7 @@
+{
+  "name": "search-sender-app",
+  "version": "0.1.0",
+  "scripts": {
+    "heroku-postbuild": "cd search-sender && npm install --only=dev && cd server && npm install --only=dev && npm install && npm run build"
+  }
+}
