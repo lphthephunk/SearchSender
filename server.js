@@ -89,9 +89,13 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "search-sender/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./search-sender/build/index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "search-sender/build")));
+  //
+  app.get("*", (req, res) => {
+    res.sendfile(path.join((__dirname = "search-sender/build/index.html")));
+  });
+}
 
 app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
