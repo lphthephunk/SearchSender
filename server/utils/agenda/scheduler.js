@@ -4,7 +4,7 @@ export const everyday = (job, time) => {
   const minutes = time.slice(2);
 
   job.repeatEvery(`${Number(minutes).toString()} ${hours.toString()} * * *`, {
-    skipImmediate: true
+    skipImmediate: false
   });
   job.save();
 };
@@ -36,7 +36,7 @@ export const certainDays = (job, days, time) => {
     `${Number(minutes).toString()} ${hours.toString()} * * ${formattedDays.join(
       ","
     )}`,
-    { skipImmediate: true }
+    { skipImmediate: false }
   );
   job.save();
 };
