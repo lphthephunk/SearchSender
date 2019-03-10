@@ -12,12 +12,6 @@ export const twentyFourHourToTwelveHour = time => {
     minutes = time.slice(2);
   }
 
-  if (minutes < 10 && minutes.length === 1) {
-    console.log("Minutes before: ", minutes);
-    minutes = "0".concat(minutes);
-    console.log("Minutes after: ", minutes);
-  }
-
   if (Number(hours) < 13) {
     return hours.toString().concat(":", minutes, " AM");
   } else {
