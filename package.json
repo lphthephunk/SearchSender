@@ -12,7 +12,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./server -s",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/server.js npm start --prefix search-sender"
+    "start": "npm run build && node ./build/server.js"
   },
   "author": "",
   "license": "ISC",
