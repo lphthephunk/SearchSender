@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" ",
-    "start": "babel-node server.js",
-    "heroku-postbuild": "npm install"
+    "start": "babel-node server.js npm start --prefix search-sender",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix search-sender && npm run build --prefix search-sender"
   },
   "author": "",
   "license": "ISC",
