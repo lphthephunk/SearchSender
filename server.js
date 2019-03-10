@@ -18,7 +18,7 @@ const app = express();
 let mongURI =
   "mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
 //let mongURI = "mongodb://localhost:27017/SearchSender";
-export const agenda = new Agenda();
+export const agenda = new Agenda({ db: { address: mongURI } });
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
