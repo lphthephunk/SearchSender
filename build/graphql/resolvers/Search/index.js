@@ -9,7 +9,7 @@ var _SearchCriteriaModel = _interopRequireDefault(require("../../../models/Searc
 
 var _UserModel = _interopRequireDefault(require("../../../models/UserModel"));
 
-var _server = require("../../../../server");
+var _server = require("../../../server");
 
 var _scheduler = require("../../../utils/agenda/scheduler");
 

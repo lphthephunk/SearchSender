@@ -1,6 +1,6 @@
 import Schedule from "../../../models/SearchCriteriaModel";
 import User from "../../../models/UserModel";
-import { agenda } from "../../../../server";
+import { agenda } from "../../../server";
 import { everyday, certainDays } from "../../../utils/agenda/scheduler";
 import GetCities from "../../../external/craigslist/getCities";
 import mongoose from "mongoose";
