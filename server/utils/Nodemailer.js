@@ -13,7 +13,7 @@ export const sendMessage = async (
     } else {
       fromAccount = {
         user: process.env.SenderEmail,
-        password: process.env.SenderPassword
+        pass: process.env.SenderPassword
       };
     }
 

@@ -48,6 +48,7 @@ mongoose
                   true,
                   false
                 );
+                console.log(posts);
                 if (!posts) {
                   message = `There were no posts matching "${
                     searchData.searchText
