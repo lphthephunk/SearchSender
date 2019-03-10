@@ -1,4 +1,4 @@
-const everyday = (job, time) => {
+export const everyday = (job, time) => {
   // assuming time is always in 24 hour format and no special characters
   const hours = time.slice(0, 2);
   const minutes = time.slice(2);
@@ -9,7 +9,7 @@ const everyday = (job, time) => {
   job.save();
 };
 
-const certainDays = (job, days, time) => {
+export const certainDays = (job, days, time) => {
   // assuming time is always in 24 hour format and no special characters
   const hours = time.slice(0, 2);
   const minutes = time.slice(2);
@@ -40,5 +40,3 @@ const certainDays = (job, days, time) => {
   );
   job.save();
 };
-
-module.exports = { everyday, certainDays };

@@ -1,6 +1,6 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
-const sendMessage = async (
+export const sendMessage = async (
   toAccount,
   message,
   subject,
@@ -29,7 +29,6 @@ const sendMessage = async (
 
     console.log(transporter);
 
-    console.log("to: ", toAccount);
     let mailOptions = {
       from: '"Search Sender"',
       to: toAccount,
@@ -44,5 +43,3 @@ const sendMessage = async (
     console.error(err);
   }
 };
-
-module.exports = sendMessage;

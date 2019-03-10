@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const SearchCriteriaSchema = new Schema({
@@ -26,4 +26,4 @@ const SearchCriteriaSchema = new Schema({
 
 const SearchCriteria = mongoose.model("SearchCriteria", SearchCriteriaSchema);
 
-module.exports = SearchCriteria;
+export default SearchCriteria;

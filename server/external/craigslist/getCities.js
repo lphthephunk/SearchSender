@@ -1,7 +1,7 @@
-const cheerio = require("cheerio");
-const request = require("request-promise");
+import cheerio from "cheerio";
+import request from "request-promise";
 
-module.exports = async () => {
+export default async () => {
   try {
     const result = await request("https://geo.craigslist.org/iso/us");
     if (result) {

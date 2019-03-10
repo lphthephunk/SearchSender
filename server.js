@@ -1,23 +1,24 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const expressGraphQL = require("express-graphql");
-const bodyParser = require("body-parser");
-const schema = require("./server/graphql");
-const cors = require("cors");
-const Agenda = require("agenda");
-const jwt = require("express-jwt");
-const sendMessage = require("./server/utils/Nodemailer").sendMessage;
-const searchCraigslist = require("./server/utils/craigslist/postRetriever")
-  .searchCraigslist;
-const path = require("path");
+import express from "express";
+import mongoose from "mongoose";
+import expressGraphQL from "express-graphql";
+import bodyParser from "body-parser";
+import schema from "./server/graphql";
+import cors from "cors";
+import Agenda from "agenda";
+import jwt from "express-jwt";
+import { sendMessage } from "./server/utils/Nodemailer";
+import { searchCraigslist } from "./server/utils/craigslist/postRetriever";
+import path from "path";
+import secret from "./jwtAuth";
 
 require("dotenv").config();
 
 const app = express();
 
-let mongURI =
-  "mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
-const agenda = new Agenda();
+//let mongURI =
+//"mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
+let mongURI = "mongodb://localhost:27017/SearchSender";
+export const agenda = new Agenda();
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -69,7 +70,7 @@ mongoose
 
 // auth middleware
 const auth = jwt({
-  secret: process.env.JWT_SECRET || "SomeRandomSecret",
+  secret,
   credentialsRequired: false
 });
 
@@ -77,7 +78,7 @@ app.use(
   "/graphql",
   auth,
   bodyParser.json(),
-  cors({ origin: "http://localhost:3000", credentials: true }),
+  cors({ origin: "http://localhost:3000", credentials: false }),
   expressGraphQL(req => ({
     schema,
     context: {
@@ -87,14 +88,14 @@ app.use(
   }))
 );
 
-app.use(express.static("public"));
+/*app.use(express.static("public"));
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
-});
+});*/
 
 app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
 });
 
-module.exports.agenda = "blahblahblah";
+export default app;

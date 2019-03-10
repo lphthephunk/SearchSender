@@ -1,8 +1,9 @@
-const bcrypt = require("bcrypt");
-const jsonwebtoken = require("jsonwebtoken");
-const User = require("../../../models/UserModel");
+import bcrypt from "bcrypt";
+import jsonwebtoken from "jsonwebtoken";
+import User from "../../../models/UserModel";
+import secret from "../../../../jwtAuth";
 
-module.exports = {
+export default {
   Query: {
     user: async (root, { email, password }) => {
       try {
@@ -15,7 +16,7 @@ module.exports = {
               email: foundUser.email,
               JWT_TOKEN: jsonwebtoken.sign(
                 { id: foundUser._id, email: foundUser.email },
-                process.env.JWT_SECRET || "SomeSecretKey",
+                secret,
                 { expiresIn: "1d" }
               )
             });
@@ -57,7 +58,7 @@ module.exports = {
             email: result.email,
             JWT_TOKEN: jsonwebtoken.sign(
               { id: result._id, email: result.email },
-              process.env.JWT_SECRET || "SomeSecretKey",
+              secret,
               { expiresIn: "1d" }
             )
           });

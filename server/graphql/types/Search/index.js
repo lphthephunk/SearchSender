@@ -1,4 +1,4 @@
-module.exports = `
+export default `
     type Schedule {
         _id: ID!
         executionTime: String!

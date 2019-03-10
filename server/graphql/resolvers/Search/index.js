@@ -1,12 +1,11 @@
-const Schedule = require("../../../models/SearchCriteriaModel");
-const User = require("../../../models/UserModel");
-const agenda = require("../../../../server").agenda;
-const everyday = require("../../../utils/agenda/scheduler").everyday;
-const certainDays = require("../../../utils/agenda/scheduler").certainDays;
-const GetCities = require("../../../external/craigslist/getCities");
-const mongoose = require("mongoose");
+import Schedule from "../../../models/SearchCriteriaModel";
+import User from "../../../models/UserModel";
+import { agenda } from "../../../../server";
+import { everyday, certainDays } from "../../../utils/agenda/scheduler";
+import GetCities from "../../../external/craigslist/getCities";
+import mongoose from "mongoose";
 
-module.exports = {
+export default {
   Query: {
     schedule: async (root, { userId, executionDay }, { authenticatedUser }) => {
       try {
@@ -63,6 +62,7 @@ module.exports = {
       { authenticatedUser }
     ) => {
       try {
+        console.log("wtf: ", agenda.agenda);
         if (authenticatedUser) {
           const newSchedule = new Schedule({
             userId,

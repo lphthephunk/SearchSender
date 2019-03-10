@@ -1,0 +1,5 @@
+const secret =
+  process.env.JWT_AUTH ||
+  "5660777366F103B9814630A61A2F1D0E90B339149ED04CD8EA13BF0302DE194B";
+
+export default secret;

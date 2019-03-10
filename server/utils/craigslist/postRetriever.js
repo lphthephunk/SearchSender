@@ -1,6 +1,6 @@
-const craigslist = require("node-craigslist");
+import craigslist from "node-craigslist";
 
-const searchCraigslist = async (
+export const searchCraigslist = async (
   city,
   keywords,
   category = "sss" /* all */,
@@ -19,19 +19,14 @@ const searchCraigslist = async (
 
   try {
     let posts = [];
-    console.log("options: ", options);
-    console.log("keywords: ", keywords);
     const result = await client.search(options, keywords);
     result.forEach(({ price, date, title, url }) => {
       posts.push(
         `<b>Title: ${title}</b><br/>Price: ${price}<br/>Posting Date: ${date}<br/>Link: ${url}`
       );
     });
-    console.log(posts);
     return posts;
   } catch (err) {
     console.error(err);
   }
 };
-
-module.exports = searchCraigslist;
