@@ -170,9 +170,15 @@ export default function ManageSchedulePage(props) {
     // send the schedule to the server
     let isSuccess = false;
     let selectedMutation = isInEditMode ? EditSchedule : AddSchedule;
+    const splitTime = selectedTime.split(":");
+    let hours = splitTime[0];
+    let minutes = splitTime[0];
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
     let variables = {
       executionDays: selectedDays,
-      executionTime: selectedTime.replace(":", ""),
+      executionTime: hours.concat(minutes),
       searchText: criteria,
       searchCity: selectedCity
     };

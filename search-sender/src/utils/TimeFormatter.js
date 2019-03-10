@@ -12,9 +12,6 @@ export const twentyFourHourToTwelveHour = time => {
   }
 
   if (Number(hours) < 13) {
-    if (hours < 10) {
-      hours = "0" + hours;
-    }
     return hours.toString().concat(":", minutes, " AM");
   } else {
     hours = Number(hours) - 12;
