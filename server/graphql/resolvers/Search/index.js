@@ -62,7 +62,6 @@ export default {
       { authenticatedUser }
     ) => {
       try {
-        console.log("wtf: ", agenda);
         if (authenticatedUser) {
           const newSchedule = new Schedule({
             userId,
