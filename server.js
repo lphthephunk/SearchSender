@@ -15,9 +15,9 @@ require("dotenv").config();
 
 const app = express();
 
-//let mongURI =
-//"mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
-let mongURI = "mongodb://localhost:27017/SearchSender";
+let mongURI =
+  "mongodb://heroku_f6rz86m0:tu34o9kicmn3hbaulrt4unt792@ds255740.mlab.com:55740/heroku_f6rz86m0";
+//let mongURI = "mongodb://localhost:27017/SearchSender";
 export const agenda = new Agenda();
 
 mongoose.set("useNewUrlParser", true);
@@ -88,11 +88,11 @@ app.use(
   }))
 );
 
-/*app.use(express.static("public"));
+app.use(express.static("public"));
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
-});*/
+});
 
 app.listen(process.env.PORT || 4000, () => {
   console.log("Express server is running...");
