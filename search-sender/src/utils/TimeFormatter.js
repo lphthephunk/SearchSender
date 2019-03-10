@@ -13,7 +13,9 @@ export const twentyFourHourToTwelveHour = time => {
   }
 
   if (minutes < 10 && minutes.length === 1) {
+    console.log("Minutes before: ", minutes);
     minutes = "0".concat(minutes);
+    console.log("Minutes after: ", minutes);
   }
 
   if (Number(hours) < 13) {

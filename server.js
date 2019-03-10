@@ -27,7 +27,7 @@ mongoose
   .connect(mongURI)
   .then(() => {
     console.log("MongoDB connected");
-    agenda.mongo(mongoose.connection, "jobs", () => {
+    agenda.mongo(mongoose.connection, "", () => {
       agenda.start().then(() => {
         console.log("Agenda initialized");
         agenda.processEvery("30 seconds");

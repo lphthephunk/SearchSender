@@ -172,7 +172,7 @@ export default function ManageSchedulePage(props) {
     let selectedMutation = isInEditMode ? EditSchedule : AddSchedule;
     const splitTime = selectedTime.split(":");
     let hours = splitTime[0];
-    let minutes = splitTime[0];
+    let minutes = splitTime[1];
     if (hours < 10) {
       hours = "0" + hours;
     }
