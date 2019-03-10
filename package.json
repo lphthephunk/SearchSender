@@ -9,7 +9,10 @@
     "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" ",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix search-sender && npm run build --prefix search-sender",
     "client": "npm start --prefix search-sender",
-    "start": "node server.js npm start --prefix search-sender"
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/index.js npm start --prefix search-sender"
   },
   "author": "",
   "license": "ISC",
