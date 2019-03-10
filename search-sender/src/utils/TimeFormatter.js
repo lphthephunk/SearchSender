@@ -1,6 +1,7 @@
 export const twentyFourHourToTwelveHour = time => {
   let hours = "";
   let minutes = "";
+
   // first determine if this time even needs formatting
   if (time.includes(":")) {
     const parsedTime = time.split(":");
@@ -9,6 +10,10 @@ export const twentyFourHourToTwelveHour = time => {
   } else {
     hours = time.slice(0, 2);
     minutes = time.slice(2);
+  }
+
+  if (minutes < 10 && minutes.length === 1) {
+    minutes = "0".concat(minutes);
   }
 
   if (Number(hours) < 13) {
