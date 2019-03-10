@@ -4,15 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client-install": "npm install --prefix search-sender",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently --kill-others \"node --exec babel-node server.js\" \"mongod\" ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix search-sender && npm run build --prefix search-sender",
-    "client": "npm start --prefix search-sender",
-    "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel -d ./build ./server -s",
-    "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/server.js"
+    "start": "babel-node server.js",
+    "heroku-postbuild": "npm install"
   },
   "author": "",
   "license": "ISC",
