@@ -10,7 +10,7 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix search-sender && npm run build --prefix search-sender",
     "client": "npm start --prefix search-sender",
     "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel -d ./build ./server -s",
+    "build-babel": "babel -d ./build -s",
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/server.js"
   },
